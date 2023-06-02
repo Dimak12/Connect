@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Connect-Signup| Profile</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> 
+        
+        <style>
+            
+            *{
+                box-sizing: border-box;
+                margin: 0px;
+                padding: 0px;
+                
+            }
+            
+            .container{
+                
+                display: grid;
+                grid-template-areas: 'left right';
+                grid-template-columns:1fr 1fr;
+                height: 100%;
+                
+                    
+            }
+            
+            .left {
+                grid-area:left;
+                background-image: url("images/connect dark purple gold.jpg");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 100vh;
+            }
+            .right {
+                
+                grid-area:right;
+                background-color: #3B4756;
+                height: 100%;
+                
+            }
+            .wrapper {
+                display: flex;
+                flex-direction: column;
+                background: #fff;
+                margin:90px auto;
+                border-radius: 10px;
+                width: 400px;
+                height:350px;
+                overflow-x: hidden;
+                overflow-y:hidden;
+                
+            }
+            
+            
+            .signup{
+                width: 50%;
+                background:none;
+                float: left;
+                height: 50px;
+                line-height: 60px;
+                text-align: center;
+                cursor: pointer;
+                text-transform: uppercase;
+                
+            }
+            
+            .username, .password,.fullname,.email,.bio{
+                
+                display: flex;
+                flex-direction: column;
+                margin: 10px;
+                
+            }
+            
+            .input,.lab{
+                
+                margin:0px 15px;
+                font-family: lato,sans-serif;
+            }
+            
+            .button{
+                display: flex;
+                justify-content: center;
+                margin: 20px 0px;
+            }
+            
+            
+            .signup-form{
+                
+                display: flex;
+                flex-direction: column;
+                margin: 30px 0px;
+                 
+            }
+            
+            .input{
+                
+                height: 30px;
+                outline: none;;
+                border: 1px solid #CBB26B;
+                padding: 10px;
+                font-family: lato,sans-serif;
+                
+            }
+            
+            .btn{
+                
+                width: 80px;
+                height: 35px;
+                border: none;
+                outline: none;
+                background: #CBB26B;
+                font-family: lato,sans-serif;
+                cursor:pointer;
+            }
+            
+            .fa {
+                margin-right: 5px;
+            }
+            
+            #picture{
+                
+                width:150px;
+                max-height:100px;
+                border-radius: 100%;
+                cursor: pointer;
+                    
+            }
+            
+            #profile-pic{
+                display: none;
+            }
+            
+            .imgRemove{
+                outline: none;
+                font-size: 30px;
+                border: none;
+                background-color: transparent;
+            }
+            
+            .imgRemove::after{
+                
+                content: '\00d7';
+                color: black;
+                font-weight: 900;
+                border-radius: 8px;
+                cursor: pointer;
+                    
+            }
+            
+            .profile_wrapper{
+                display: flex;
+                justify-content: center;
+                margin-bottom: 10px;
+                
+            }
+            
+            .profile_wrapper label{
+                display: flex;
+                height:100px;
+                align-items: flex-start;
+                
+            }
+            
+            .textarea{
+                height:50px;
+                resize: none;
+                
+            }
+            
+            .signup-form h3{
+                
+                align-self: center;
+                margin-bottom: 10px;
+                font-family: lato,sans-serif;
+            }
+            
+        </style>
+        
+        <script>
+            function imagePreview(event) {
+                if (event.target.files.length > 0) {
+                    let src = URL.createObjectURL(event.target.files[0]);
+                    let preview = document.getElementById("picture");
+                    preview.src = src;
+                    preview.style.display = "block";
+                }
+            }
+            function imageRemover() {
+                document.getElementById("picture").src = "./images/User-Profile-Image.png";
+            }
+        </script>
+        
+        
+    </head>
+    <body>
+        <div class="container">
+            <div class="left"></div>
+            <div class="right">
+                
+                <div class="wrapper">
+                    
+                    <form class="signup-form" id="signup-form" method="POST" action="ProfileDescriptiion" enctype="multipart/form-data">
+                        <h3>Select a profile picture</h3>
+                        <div class="profile_wrapper">
+                            <label for="profile-pic">
+                                <img id="picture" src="./images/User-Profile-Image.png" alt="profile_picture"/>
+                                <button type="button" class="imgRemove" onclick="imageRemover()"></button> 
+                            </label>
+                            <input type="file" id="profile-pic" accept="image/*" name="profile_pic" onchange="imagePreview(event)"/>
+                        </div>
+                        
+                        <div class="bio">
+                            <label class="lab"><i class="fa fa-book"></i>Bio</label>
+                            <textarea name="bio" class="input textarea" placeholder="write your bio..."  ></textarea>
+                        </div>
+                        
+                        <div class="button"><button class="btn" type="submit">Sign Up</button></div>
+                            
+                        
+                    </form>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </body>
+</html>

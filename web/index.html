@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Connect</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> 
+        
+        <style>
+            
+            *{
+                box-sizing: border-box;
+                margin: 0px;
+                padding: 0px;
+                
+            }
+            
+            .container{
+                
+                display: grid;
+                grid-template-areas: 'left right';
+                grid-template-columns:1fr 1fr;
+                height: 100%;
+                
+                    
+            }
+            
+            .left {
+                grid-area:left;
+                background-image: url("images/connect dark purple gold.jpg");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 100vh;
+            }
+            .right {
+                
+                grid-area:right;
+                background-color: #3B4756;
+                height: 100%;
+                
+            }
+            .wrapper {
+                display: flex;
+                flex-direction: column;
+                background: #fff;
+                margin:100px auto;
+                border-radius: 10px;
+                width: 350px;
+                height:450px;
+                overflow-x: hidden;
+                overflow-y:hidden;
+                
+            }
+            .toggle{
+                width: 100%;
+                border-bottom: 1px solid silver; 
+            }
+            .login{
+                
+                width: 50%;
+                background: #CBB26B;
+                float: left;
+                height: 50px;
+                line-height: 60px;
+                text-align: center;
+                cursor: pointer;
+                text-transform: uppercase;
+            }
+            
+            .signup{
+                width: 50%;
+                background:none;
+                float: left;
+                height: 50px;
+                line-height: 60px;
+                text-align: center;
+                cursor: pointer;
+                text-transform: uppercase;
+                
+            }
+            
+            .username, .password,.fullname,.email{
+                
+                display: flex;
+                flex-direction: column;
+                margin: 10px;
+                
+            }
+            
+            .input,.lab{
+                
+                margin:0px 15px;
+            }
+            
+            .button{
+                display: flex;
+                justify-content: center;
+                margin: 20px 0px;
+            }
+            
+            .login-form{
+                
+                margin: 50px 0px;
+                 
+            }
+            
+            .signup-form{
+                
+                
+                margin: 50px 0px;
+                 
+            }
+            
+            .input{
+                
+                height: 30px;
+                outline: none;;
+                border: 1px solid #CBB26B;
+                padding: 10px;
+                font-family: lato,sans-serif;
+                
+            }
+            
+            .btn{
+                
+                width: 80px;
+                height: 35px;
+                border: none;
+                outline: none;
+                background: #CBB26B;
+                font-family: lato,sans-serif;
+                cursor:pointer;
+            }
+            
+            .fa {
+                margin-right: 5px;
+            }
+            
+            .alert{
+                color: red;
+                font-size: 12px;
+                padding: 0px 15px;
+            }
+            
+            
+        </style>
+        
+        <script>
+            var err_username = false;
+                var err_full_name = false;
+                var err_email = false;
+                var err_password = false;
+            
+            
+           
+            $(document).ready(function(){
+                
+                $(".signup-form").hide();
+                $(".signup").css("background", "none");
+                $(".login").click(function(){
+                    
+                    $(".signup-form").hide();
+                    $(".login-form").show();
+                    $(".signup").css("background","none");
+                    $(".login").css("background","#CBB26B");
+                });
+                
+                $(".signup").click(function(){
+                    
+                    $(".signup-form").show();
+                    $(".login-form").hide();
+                    $(".login").css("background","none");
+                    $(".signup").css("background","#CBB26B");
+                });
+                
+            
+            });
+            
+            $(document).ready(function(){
+                
+                $("#fname").focusout(function(){
+                    check_full_name();
+                });
+                
+                $("#uname").focusout(function(){
+                    check_username();
+                });
+                $("#email").focusout(function(){
+                   check_email();
+                });
+                $("#pword").focusout(function(){
+                    check_password();
+                });
+                
+                function check_full_name(){
+                    var pattern =/^[a-zA-Z]{2,}(?: [a-zA-Z]+){1,3}$/;
+                    var fname = $("#fname").val();
+                     if (pattern.test(fname) && fname !== ""){
+                        $("#fname").css("border","1px solid #34F458",);
+                    }
+                    else{
+                        $("#full_name_alert").html("Invalid full name format");
+                        $("#fname").css("border","1px solid #F90A0A",);
+                        err_full_name = true;
+                    }
+                }
+                
+                function check_username(){
+                    var pattern = /^[a-zA-Z][a-zA-Z\d\-_\.]*$|^[a-zA-Z\d\-_\.]*[a-zA-Z]$/;
+                    var uname = $("#uname").val();
+                    if (pattern.test(uname) && uname !== ""){
+                        $("#uname").css("border","1px solid #34F458",);
+                    }
+                    else{
+                        $("#username_alert").html("Invalid username");
+                        $("#username").css("border","1px solid #F90A0A",);
+                        err_username = true;
+                    }
+                }
+                
+                function check_email(){
+                    var pattern = /^([\w\.-]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                    var email = $("#email").val();
+                    if (pattern.test(email) && email !== ""){
+                        $("#email").css("border","1px solid #34F458",);
+                    }
+                    else{
+                        $("#email_alert").html("Invalid email");
+                        $("#email").css("border","1px solid #F90A0A",);
+                        err_email = true;
+                    }
+                }
+                
+                function check_password(){
+                    var pattern = /^[a-zA-Z0-9.!@#\$%\^&\*]{6,15}$/;
+                    var password = $("#pword").val();
+                    if (pattern.test(password) && password !== ""){
+                        $("#pword").css("border","1px solid #34F458",);
+                    }
+                    else{
+                        $("#password_alert").html("password must have 6-15 characters");
+                        $("#pword").css("border","1px solid #F90A0A",);
+                        err_password = true;
+                    }
+                }
+                
+                
+                
+                
+                $("#uname").on("change paste keyup select",function(){
+                    $("#username_alert").html("");
+                });
+                
+                $("#email").on("change paste keyup select",function(){
+                    $("#email_alert").html("");
+                });
+                
+                $("#fname").on("change paste keyup select",function(){
+                    $("#full_name_alert").html("");
+                });
+                
+                $("#pword").on("change paste keyup select",function(){
+                    $("#password_alert").html("");
+                });
+                
+                $("#signup_btn").click(function(){
+                    
+                    err_full_name = false;
+                    err_username = false;
+                    err_email = false;
+                    err_password = false;
+                    
+                    
+                    check_full_name();
+                    check_username();
+                    check_email();
+                    check_password();
+                    
+                        
+                    
+                    
+                    if(err_full_name === true || err_username === true || err_email === true || err_password === true ){
+                        
+                        alert("Please ensure that every fields are filled out correctly");
+                        return false;
+                    }
+                    
+                    else{
+                        
+                        
+                        var fname = $("#fname").val(),
+                            uname = $("#uname").val(),
+                            email = $("#email").val(),
+                            pword = $("#pword").val();
+                    
+                        $.post("Signup",{
+                        fname:fname,
+                        uname:uname,
+                        email:email,
+                        pword:pword
+                        }, function(response){
+
+
+                            if(response === 'Username taken'){
+                                $("#username_alert").html(response);
+                            }
+                            else if(response === 'Email taken'){
+                                $("#email_alert").html(response);
+                            }
+                            else{
+                                window.location.href = 'ProfileDescription.html';
+                            }
+                        });
+                    
+                        return true;    
+                        
+                    }
+                });
+                
+            });
+                
+                
+                
+                
+                
+            
+            
+            
+                
+                
+            
+            
+            $(document).ready(function(){
+                
+                $("#login-form").submit(function(e){
+                    e.preventDefault();
+                });
+                
+                $("#login_btn").click(function(){
+                    
+                    var user = $("#user").val(),
+                        password = $("#password").val();
+                        
+                        if(user === "" || password === ""){
+                            
+                            alert("Please ensure that every fields are filled out correctly");
+                        }
+                        
+                        else{
+                            $.post("Login",{
+                        user:user,
+                        password:password
+                    }, function(res){
+                        
+                        if(res === 'exists'){
+                            window.location.href = 'MainPage.jsp';
+                            
+                        }
+                        else{
+                            alert("Username or password incorrect. Please try again");
+                        }
+                    });
+                        }
+                });
+            });
+            
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="left"></div>
+            <div class="right">
+                
+                <div class="wrapper">
+                    <div class="toggle">
+                        
+                        <div class="login" id="login">Log In</div>
+                        <div class="signup" id="signup">Sign Up</div>
+                    </div>
+                    
+                    <form class="login-form" id="signup-form">
+                        <div class="username">
+                            <label class="lab"><i class="fa fa-user"></i>Username</label>
+                            <input type="text" name="username" class="input" id="user" placeholder="e.g: john01" required>
+                        </div>
+                        <div class="password">
+                            <label class="lab" ><i class="fa fa-lock"></i>Password</label>
+                            <input type="text" name="password" class="input" id="password" placeholder="password" required>
+                        </div>
+                        <div class="button"><button class="btn" type="button" id="login_btn">Log In</button></div>
+                        
+                    </form>
+                    <form class="signup-form" id="signup-form" >
+                        <div class="fullname">
+                            <label class="lab"><i class="fa fa-user"></i>Full Name</label>
+                            <input type="text" name="fname" class="input" id="fname" placeholder="e.g: John Doe"  >
+                            <span class="alert" id="full_name_alert"></span>
+                        </div>
+                        <div class="username">
+                            <label class="lab"><i class="fa fa-user"></i>Username</label>
+                            <input type="text" name="uname" class="input" id="uname" placeholder="e.g: john01" >
+                            <span class="alert" id="username_alert"></span>
+                        </div>
+                        
+                        <div class="email">
+                            <label class="lab"><i class="fa fa-envelope"></i>Email</label>
+                            <input type="email" name="email" class="input" id="email" placeholder="e.g: johnd@gmail.com" >
+                            <span class="alert" id="email_alert"></span>
+                        </div>
+                        
+                        <div class="password">
+                            <label class="lab"><i class="fa fa-lock"></i>Password</label>
+                            <input type="password" name="pword" class="input" id="pword" placeholder="password" >
+                            <span class="alert" id="password_alert"></span>
+                        </div>
+                        <div class="button"><button class="btn" type="button" id="signup_btn">Next</button></div>
+                            
+                        
+                    </form>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </body>
+</html>
